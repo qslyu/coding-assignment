@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import PageTemplate from "./components/templates/page-template";
 import Root from "./routes/root";
+import "./reset.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
