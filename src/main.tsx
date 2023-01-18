@@ -9,6 +9,7 @@ import {
 import PageTemplate from "./components/templates/page-template";
 import Root from "./routes/root";
 import "./reset.css";
+import "./main.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
