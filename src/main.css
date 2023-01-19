@@ -6,4 +6,5 @@
   --max-width: 1440px;
 
   background-color: var(--bg-color);
+  color: var(--primary-color);
 }
