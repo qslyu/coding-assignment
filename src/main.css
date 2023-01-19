@@ -4,4 +4,6 @@
   --card-color: #ffffff;
 
   --max-width: 1440px;
+
+  background-color: var(--bg-color);
 }
