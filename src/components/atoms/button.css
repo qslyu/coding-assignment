@@ -1,0 +1,22 @@
+.button {
+  height: 2.4em;
+  line-height: 0px;
+  padding: 0.7em 1em;
+  border-radius: 1.2em;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+}
+
+.button.contained {
+  color: var(--card-color);
+  background-color: var(--primary-color);
+}
+
+.button.outlined {
+  color: var(--primary-color);
+  background-color: var(--card-color);
+  outline: 0.1em solid var(--primary-color);
+  outline-offset: -0.1em;
+}
