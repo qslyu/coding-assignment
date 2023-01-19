@@ -1,0 +1,4 @@
+.form-gruop > dd > input[type="text"],
+.form-gruop > dd > input[type="password"] {
+  width: 300px;
+}
