@@ -6,7 +6,7 @@ import FormGroup from "../components/molecules/form-group";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../fireabse/auth";
 import { ValidateEmail, ValidatePassword } from "../utils/validate";
-import Error from "../components/atoms/error-message";
+import ErrorMessage from "../components/atoms/error-message";
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -44,6 +44,7 @@ const SignUp: React.FC = () => {
     ).catch((error) => {
       setIsProcessing(false);
       setError(error.message);
+      throw error;
     });
 
     setIsProcessing(false);
@@ -89,7 +90,7 @@ const SignUp: React.FC = () => {
           に同意する
         </label>
       </div>
-      <Error>{error}</Error>
+      <ErrorMessage>{error}</ErrorMessage>
       <Button
         variant="contained"
         onClick={handleSubmit}

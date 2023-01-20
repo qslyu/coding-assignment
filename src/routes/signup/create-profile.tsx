@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/atoms/button";
-import Error from "../../components/atoms/error-message";
+import ErrorMessage from "../../components/atoms/error-message";
 import AvatarInput from "../../components/molecules/avatar-input";
 import Card from "../../components/molecules/card";
 import FormGroup from "../../components/molecules/form-group";
@@ -108,7 +108,7 @@ const CreateProfile: React.FC = () => {
         value={formValues.gendor.value}
         error={formValues.gendor.error}
       />
-      <Error>{error}</Error>
+      <ErrorMessage>{error}</ErrorMessage>
       <Button
         variant="contained"
         disabled={
