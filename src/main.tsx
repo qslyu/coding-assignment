@@ -10,11 +10,15 @@ import PageTemplate from "./components/templates/page-template";
 import Root from "./routes/root";
 import "./reset.css";
 import "./main.css";
+import SignUp from "./routes/signup";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<PageTemplate />}>
       <Route path="" element={<Root />} />
+      <Route path="signup">
+        <Route path="" element={<SignUp />} />
+      </Route>
     </Route>
   )
 );
