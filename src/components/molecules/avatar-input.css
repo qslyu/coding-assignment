@@ -1,0 +1,21 @@
+.avatar-input {
+  position: relative;
+}
+
+.avatar-input > label {
+  position: absolute;
+  bottom: 0.8em;
+  left: 0.5em;
+  font-size: small;
+  padding: 0.2em;
+  border-style: solid;
+  border-width: 2px;
+  background-color: var(--card-color);
+  border-color: var(--primary-color);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.avatar-input > label > input {
+  display: none;
+}
