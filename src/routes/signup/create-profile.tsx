@@ -56,6 +56,7 @@ const CreateProfile: React.FC = () => {
     const userDocRef = doc(db, "user", user.uid);
     await setDoc(userDocRef, {
       avatar: avatarImageSrc,
+      userName: formValues.userName.value,
       dateOfBirth: new Date(formValues.dateOfBirth.value),
       gendor: Number(formValues.gendor.value),
     }).catch((error) => {
