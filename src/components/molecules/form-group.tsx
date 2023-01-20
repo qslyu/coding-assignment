@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorMessage from "../atoms/error-message";
 import Input from "../atoms/input";
 import "./form-group.css";
 
@@ -6,9 +7,13 @@ type FormGroupProps = {
   label: string;
   type?: React.HTMLInputTypeAttribute;
   name?: string;
+  value?: string | number;
   accept?: string;
+  min?: string | number;
+  max?: string | number;
   options?: { label: string; value: number | string }[];
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  error?: string;
 };
 
 const FormGroup: React.FC<FormGroupProps> = (props) => {
@@ -36,10 +41,15 @@ const FormGroup: React.FC<FormGroupProps> = (props) => {
           <Input
             type={props.type}
             name={props.name}
+            value={props.value}
             accept={props.accept}
+            min={props.min}
+            max={props.max}
             onChange={props.onChange}
+            error={!!props.error}
           />
         )}
+        <ErrorMessage>{props.error}</ErrorMessage>
       </dd>
     </dl>
   );
