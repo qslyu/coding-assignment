@@ -24,7 +24,7 @@ const Header: React.FC = () => {
             </NavigationButton>
           </li>
           <li>
-            <NavigationButton to="/register" variant="contained">
+            <NavigationButton to="/signup" variant="contained">
               新規登録
             </NavigationButton>
           </li>
