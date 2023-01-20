@@ -42,13 +42,13 @@ const CreateProfile: React.FC = () => {
     setIsProcessing(true);
     let avatarImageSrc = "";
     if (avatarImageFile !== undefined) {
-      try {
-        avatarImageSrc = await uploadAvatarImage(user, avatarImageFile);
-      } catch (error) {
-        setError("エラーが発生しました。");
-        setIsProcessing(false);
-        return;
-      }
+      avatarImageSrc = await uploadAvatarImage(user, avatarImageFile).catch(
+        (error) => {
+          setError("エラーが発生しました。");
+          setIsProcessing(false);
+          throw error;
+        }
+      );
     } else {
       avatarImageSrc = import.meta.env.VITE_DEFAULT_AVATAR_SRC;
     }
@@ -62,9 +62,7 @@ const CreateProfile: React.FC = () => {
     }).catch((error) => {
       setError("エラーが発生しました。");
       setIsProcessing(false);
-      const errorMessage = error.message;
-      if (errorMessage) setError(errorMessage);
-      return;
+      throw error;
     });
 
     setIsProcessing(false);
