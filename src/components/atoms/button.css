@@ -20,3 +20,10 @@
   outline: 0.1em solid var(--primary-color);
   outline-offset: -0.1em;
 }
+
+.button.disabled {
+  background-color: var(--disabled-color);
+  color: var(--card-color);
+  outline: none;
+  cursor: not-allowed;
+}
