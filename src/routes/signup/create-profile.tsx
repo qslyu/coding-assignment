@@ -9,6 +9,7 @@ import FormGroup from "../../components/molecules/form-group";
 import auth from "../../fireabse/auth";
 import uploadAvatarImage from "../../utils/upload-avatar-image";
 import db from "../../fireabse/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 const CreateProfile: React.FC = () => {
   const navigate = useNavigate();
@@ -35,38 +36,39 @@ const CreateProfile: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async () => {
-    const user = auth.currentUser;
-    if (user === null) return;
+  const handleSubmit = () => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setIsProcessing(true);
+        let avatarImageSrc = "";
+        if (avatarImageFile !== undefined) {
+          avatarImageSrc = await uploadAvatarImage(user, avatarImageFile).catch(
+            (error) => {
+              setError("エラーが発生しました。");
+              setIsProcessing(false);
+              throw error;
+            }
+          );
+        } else {
+          avatarImageSrc = import.meta.env.VITE_DEFAULT_AVATAR_SRC;
+        }
 
-    setIsProcessing(true);
-    let avatarImageSrc = "";
-    if (avatarImageFile !== undefined) {
-      avatarImageSrc = await uploadAvatarImage(user, avatarImageFile).catch(
-        (error) => {
+        const userDocRef = doc(db, "user", user.uid);
+        await setDoc(userDocRef, {
+          avatar: avatarImageSrc,
+          userName: formValues.userName.value,
+          dateOfBirth: new Date(formValues.dateOfBirth.value),
+          gendor: Number(formValues.gendor.value),
+        }).catch((error) => {
           setError("エラーが発生しました。");
           setIsProcessing(false);
           throw error;
-        }
-      );
-    } else {
-      avatarImageSrc = import.meta.env.VITE_DEFAULT_AVATAR_SRC;
-    }
+        });
 
-    const userDocRef = doc(db, "user", user.uid);
-    await setDoc(userDocRef, {
-      avatar: avatarImageSrc,
-      userName: formValues.userName.value,
-      dateOfBirth: new Date(formValues.dateOfBirth.value),
-      gendor: Number(formValues.gendor.value),
-    }).catch((error) => {
-      setError("エラーが発生しました。");
-      setIsProcessing(false);
-      throw error;
+        setIsProcessing(false);
+        navigate("/profile");
+      }
     });
-
-    setIsProcessing(false);
-    navigate("/profile");
   };
 
   return (
