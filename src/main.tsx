@@ -13,6 +13,7 @@ import "./main.css";
 import SignUp from "./routes/signup";
 import CreateProfile from "./routes/signup/create-profile";
 import Profile from "./routes/profile";
+import Login from "./routes/login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
         <Route path="" element={<SignUp />} />
         <Route path="create-profile" element={<CreateProfile />} />
       </Route>
+      <Route path="login" element={<Login />} />
       <Route path="profile" element={<Profile />} />
     </Route>
   )
