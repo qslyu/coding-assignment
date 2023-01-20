@@ -7,6 +7,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../fireabse/auth";
 import { ValidateEmail, ValidatePassword } from "../utils/validate";
 import ErrorMessage from "../components/atoms/error-message";
+import errorCodeToMessage from "../fireabse/errorCodeToMessage";
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const SignUp: React.FC = () => {
       formValues.password.value
     ).catch((error) => {
       setIsProcessing(false);
-      setError(error.message);
+      setError(errorCodeToMessage(error.code));
       throw error;
     });
 
