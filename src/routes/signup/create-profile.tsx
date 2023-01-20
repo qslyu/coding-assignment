@@ -57,7 +57,7 @@ const CreateProfile: React.FC = () => {
     await setDoc(userDocRef, {
       avatar: avatarImageSrc,
       dateOfBirth: new Date(formValues.dateOfBirth.value),
-      gendor: formValues.gendor.value,
+      gendor: Number(formValues.gendor.value),
     }).catch((error) => {
       setError("エラーが発生しました。");
       setIsProcessing(false);
