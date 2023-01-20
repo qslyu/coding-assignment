@@ -67,6 +67,8 @@ const CreateProfile: React.FC = () => {
 
         setIsProcessing(false);
         navigate("/profile");
+      } else {
+        navigate("/login");
       }
     });
   };
