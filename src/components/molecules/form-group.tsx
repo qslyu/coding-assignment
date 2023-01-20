@@ -19,17 +19,19 @@ const FormGroup: React.FC<FormGroupProps> = (props) => {
       </dt>
       <dd>
         {props.options ? (
-          props.options.map((option) => (
-            <>
-              <input
-                name={props.name}
-                type={props.type}
-                value={option.value}
-                onChange={props.onChange}
-              />
-              <label>{option.label}</label>
-            </>
-          ))
+          <div>
+            {props.options.map((option) => (
+              <div key={option.value}>
+                <input
+                  name={props.name}
+                  type={props.type}
+                  value={option.value}
+                  onChange={props.onChange}
+                />
+                <label>{option.label}</label>
+              </div>
+            ))}
+          </div>
         ) : (
           <Input
             type={props.type}
