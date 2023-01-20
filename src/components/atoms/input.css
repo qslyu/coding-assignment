@@ -1,7 +1,16 @@
 .input {
   border-style: solid;
+  border-color: var(--primary-color);
   border-radius: 6px;
   border-width: 2px;
   font-size: 14px;
   padding: 0.3em;
+}
+
+.input:focus {
+  border-width: 3px;
+}
+
+.input-error {
+  border-color: var(--error-color);
 }
