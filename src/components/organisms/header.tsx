@@ -11,7 +11,7 @@ type HeaderProps = {
   isLoggedIn: boolean;
 };
 
-const Header: React.FC<HeaderProps> = (isLoggedIn) => {
+const Header: React.FC<HeaderProps> = (props) => {
   const navigate = useNavigate();
   return (
     <header>
@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = (isLoggedIn) => {
         </nav>
 
         <ul className="auth-container">
-          {!isLoggedIn ? (
+          {!props.isLoggedIn ? (
             <>
               <li>
                 <NavigationButton to="/login" variant="outlined">
