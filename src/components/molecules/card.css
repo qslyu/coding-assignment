@@ -3,7 +3,8 @@
   flex-direction: column;
   gap: 1em;
   background-color: var(--card-color);
-  width: fit-content;
+  width: 90%;
+  max-width: 400px;
   border-radius: 1em;
   padding: 3em;
 }

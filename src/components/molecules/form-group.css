@@ -6,9 +6,3 @@
 .form-gruop > dd > div {
   display: flex;
 }
-
-.form-gruop > dd > input[type="text"],
-.form-gruop > dd > input[type="email"],
-.form-gruop > dd > input[type="password"] {
-  width: 300px;
-}
