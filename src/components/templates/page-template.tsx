@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useDocument } from "react-firebase-hooks/firestore";
 import Header from "../organisms/header";
 import "./page-template.css";
 import auth from "../../fireabse/auth";
