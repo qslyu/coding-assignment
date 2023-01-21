@@ -2,26 +2,68 @@ header {
   position: sticky;
   top: 0px;
   width: 100%;
-  height: 4em;
+  min-height: 4em;
   background-color: var(--card-color);
+  padding: 2em;
 }
 
-header > .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 1.5em;
-  max-width: var(--max-width);
+.menu-button {
+  position: absolute;
+  top: 1.5em;
+  right: 2.5em;
+  width: 2em;
+  height: 2em;
+  border: none;
+  outline: none;
+  appearance: none;
+  background-color: transparent;
+  background: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("/three-bars.svg");
 }
 
-.main-nav > ul {
-  display: flex;
-  gap: 0 1em;
+.close-button {
+  background-image: url("/x.svg");
+}
+
+.invisible {
+  display: none;
+}
+
+.main-nav {
+  margin-bottom: 1em;
 }
 
 .auth-container {
   display: flex;
   gap: 0 0.4em;
+}
+
+@media screen and (min-width: 550px) {
+  header {
+    height: 4em;
+  }
+  header > .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 1.5em;
+    max-width: var(--max-width);
+  }
+
+  .main-nav {
+    margin: 0;
+  }
+
+  .main-nav > ul {
+    display: flex;
+    gap: 0 1em;
+  }
+
+  .menu-button {
+    display: none;
+  }
 }

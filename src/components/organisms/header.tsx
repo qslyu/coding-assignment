@@ -13,9 +13,14 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = (props) => {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <header>
-      <div className="container">
+      <button
+        className={`menu-button ${isOpen ? "close-button" : ""}`}
+        onClick={() => setIsOpen(!isOpen)}
+      />
+      <div className={`container ${isOpen ? "" : "invisible"}`}>
         <nav className="main-nav">
           <ul>
             <li>
