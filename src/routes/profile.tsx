@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Avatar from "../components/atoms/avatar";
 import Card from "../components/molecules/card";
 import { useUser } from "../components/templates/page-template";
 
 const Profile: React.FC = () => {
-  const { user, userData } = useUser();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (
+      userData &&
+      (!userData.avatar ||
+        !userData.userName ||
+        !userData.dateOfBirth ||
+        !userData.gendor)
+    ) {
+      navigate("/signup/create-profile");
+    }
+  });
 
   return (
     <Card>
