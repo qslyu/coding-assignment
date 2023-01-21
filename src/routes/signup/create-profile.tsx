@@ -17,7 +17,7 @@ const CreateProfile: React.FC = () => {
   const [formValues, setFormValues] = useState({
     userName: { value: "", error: "" },
     dateOfBirth: { value: "", error: "" },
-    gendor: { value: "", error: "" },
+    gender: { value: "", error: "" },
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +57,7 @@ const CreateProfile: React.FC = () => {
         avatar: avatarImageSrc,
         userName: formValues.userName.value,
         dateOfBirth: new Date(formValues.dateOfBirth.value),
-        gendor: Number(formValues.gendor.value),
+        gender: Number(formValues.gender.value),
       }).catch((error) => {
         setError("エラーが発生しました。");
         setIsProcessing(false);
@@ -95,7 +95,7 @@ const CreateProfile: React.FC = () => {
       />
       <FormGroup
         label="性別"
-        name="gendor"
+        name="gender"
         type="radio"
         options={[
           { label: "男性", value: 1 },
@@ -104,8 +104,8 @@ const CreateProfile: React.FC = () => {
           { label: "回答しない", value: 0 },
         ]}
         onChange={handleInputChange}
-        value={formValues.gendor.value}
-        error={formValues.gendor.error}
+        value={formValues.gender.value}
+        error={formValues.gender.error}
       />
       <ErrorMessage>{error}</ErrorMessage>
       <Button
@@ -114,11 +114,11 @@ const CreateProfile: React.FC = () => {
           !(
             formValues.userName.value &&
             formValues.dateOfBirth.value &&
-            formValues.gendor.value
+            formValues.gender.value
           ) ||
           !!formValues.userName.error ||
           !!formValues.dateOfBirth.error ||
-          !!formValues.gendor.error ||
+          !!formValues.gender.error ||
           isProcessing
         }
         onClick={handleSubmit}

@@ -17,7 +17,7 @@ const Profile: React.FC = () => {
       (!userData.avatar ||
         !userData.userName ||
         !userData.dateOfBirth ||
-        !userData.gendor)
+        !userData.gender)
     ) {
       navigate("/signup/create-profile");
     }
@@ -35,7 +35,7 @@ const Profile: React.FC = () => {
       <ul>
         <li>メールアドレス: {user && user.email}</li>
         <li>生年月日: {userData?.dateOfBirth}</li>
-        <li>性別: {userData?.gendor}</li>
+        <li>性別: {userData?.gender}</li>
       </ul>
     </Card>
   );

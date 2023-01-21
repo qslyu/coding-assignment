@@ -12,7 +12,7 @@ type userDataType = {
   avatar: string;
   userName: string;
   dateOfBirth: string;
-  gendor: string;
+  gender: string;
 };
 
 type ContextType = {
@@ -33,19 +33,19 @@ const PageTemplate: React.FC = () => {
         const value = await getDoc(docRef);
         if (value.exists()) {
           const data = value.data();
-          let gendor = "";
-          switch (data.gendor) {
+          let gender = "";
+          switch (data.gender) {
             case 0:
-              gendor = "未回答";
+              gender = "未回答";
               break;
             case 1:
-              gendor = "男性";
+              gender = "男性";
               break;
             case 2:
-              gendor = "女性";
+              gender = "女性";
               break;
             case 9:
-              gendor = "その他";
+              gender = "その他";
               break;
           }
 
@@ -53,7 +53,7 @@ const PageTemplate: React.FC = () => {
             avatar: data.avatar,
             userName: data.userName,
             dateOfBirth: data.dateOfBirth.toDate().toLocaleDateString(),
-            gendor: gendor,
+            gender: gender,
           });
         }
       })();
