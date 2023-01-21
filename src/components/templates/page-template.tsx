@@ -18,11 +18,12 @@ type userDataType = {
 
 type ContextType = {
   user: User | null;
+  loadingUser: boolean;
   userData: userDataType | null;
 };
 
 const PageTemplate: React.FC = () => {
-  const [user] = useAuthState(auth);
+  const [user, loadingUser] = useAuthState(auth);
   const [userData, setUserData] = useState<userDataType>();
 
   useEffect(() => {
@@ -63,7 +64,7 @@ const PageTemplate: React.FC = () => {
     <>
       <Header isLoggedIn={!!user} />
       <main>
-        <Outlet context={{ user, userData }} />
+        <Outlet context={{ user, loadingUser, userData }} />
       </main>
     </>
   );

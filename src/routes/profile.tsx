@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Avatar from "../components/atoms/avatar";
 import Card from "../components/molecules/card";
 import { useUser } from "../components/templates/page-template";
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
+  const { user, loadingUser, userData } = useUser();
+
   useEffect(() => {
+    if (!loadingUser && !user) {
+      navigate("/login");
+    }
     if (
       userData &&
       (!userData.avatar ||
