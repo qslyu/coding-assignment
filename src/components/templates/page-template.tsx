@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useOutletContext } from "react-router-dom";
+import { Outlet, useLocation, useOutletContext } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Header from "../organisms/header";
 import "./page-template.css";
@@ -22,6 +22,7 @@ type ContextType = {
 };
 
 const PageTemplate: React.FC = () => {
+  const location = useLocation();
   const [user, loadingUser] = useAuthState(auth);
   const [userData, setUserData] = useState<userDataType>();
 
@@ -57,7 +58,7 @@ const PageTemplate: React.FC = () => {
         }
       })();
     }
-  }, [user]);
+  }, [location, user]);
 
   return (
     <>
