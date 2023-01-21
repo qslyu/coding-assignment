@@ -47,6 +47,10 @@ service firebase.storage {
       allow read;
       allow write: if request.auth.uid == userId;
     }
+    match /user/{userId}/public/profile.png {
+      allow read;
+      allow write: if request.auth.uid == userId;
+    }
     match /default/profile.jpg {
       allow read;
     }
