@@ -1,22 +1,18 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import auth from "../../fireabse/auth";
 import Button from "../atoms/button";
 import NavigationButton from "../atoms/navigation-button";
 import NavigationLink from "../atoms/navigation-link";
 import "./header.css";
 
-const Header: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
-  }, []);
+type HeaderProps = {
+  isLoggedIn: boolean;
+};
+
+const Header: React.FC<HeaderProps> = (isLoggedIn) => {
+  const navigate = useNavigate();
   return (
     <header>
       <div className="container">
@@ -47,7 +43,13 @@ const Header: React.FC = () => {
             </>
           ) : (
             <li>
-              <Button variant="outlined" onClick={() => signOut(auth)}>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  signOut(auth);
+                  navigate("/");
+                }}
+              >
                 ログアウト
               </Button>
             </li>

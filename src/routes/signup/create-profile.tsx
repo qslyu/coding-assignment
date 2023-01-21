@@ -6,13 +6,13 @@ import ErrorMessage from "../../components/atoms/error-message";
 import AvatarInput from "../../components/molecules/avatar-input";
 import Card from "../../components/molecules/card";
 import FormGroup from "../../components/molecules/form-group";
-import auth from "../../fireabse/auth";
 import uploadAvatarImage from "../../utils/upload-avatar-image";
 import db from "../../fireabse/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { useUser } from "../../components/templates/page-template";
 
 const CreateProfile: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useUser();
 
   const [formValues, setFormValues] = useState({
     userName: { value: "", error: "" },
@@ -36,41 +36,37 @@ const CreateProfile: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = () => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setIsProcessing(true);
-        let avatarImageSrc = "";
-        if (avatarImageFile !== undefined) {
-          avatarImageSrc = await uploadAvatarImage(user, avatarImageFile).catch(
-            (error) => {
-              setError("エラーが発生しました。");
-              setIsProcessing(false);
-              throw error;
-            }
-          );
-        } else {
-          avatarImageSrc = import.meta.env.VITE_DEFAULT_AVATAR_SRC;
-        }
-
-        const userDocRef = doc(db, "user", user.uid);
-        await setDoc(userDocRef, {
-          avatar: avatarImageSrc,
-          userName: formValues.userName.value,
-          dateOfBirth: new Date(formValues.dateOfBirth.value),
-          gendor: Number(formValues.gendor.value),
-        }).catch((error) => {
-          setError("エラーが発生しました。");
-          setIsProcessing(false);
-          throw error;
-        });
-
-        setIsProcessing(false);
-        navigate("/profile");
+  const handleSubmit = async () => {
+    if (user) {
+      setIsProcessing(true);
+      let avatarImageSrc = "";
+      if (avatarImageFile !== undefined) {
+        avatarImageSrc = await uploadAvatarImage(user, avatarImageFile).catch(
+          (error) => {
+            setError("エラーが発生しました。");
+            setIsProcessing(false);
+            throw error;
+          }
+        );
       } else {
-        navigate("/login");
+        avatarImageSrc = import.meta.env.VITE_DEFAULT_AVATAR_SRC;
       }
-    });
+
+      const userDocRef = doc(db, "user", user.uid);
+      await setDoc(userDocRef, {
+        avatar: avatarImageSrc,
+        userName: formValues.userName.value,
+        dateOfBirth: new Date(formValues.dateOfBirth.value),
+        gendor: Number(formValues.gendor.value),
+      }).catch((error) => {
+        setError("エラーが発生しました。");
+        setIsProcessing(false);
+        throw error;
+      });
+
+      setIsProcessing(false);
+      navigate("/profile");
+    }
   };
 
   return (
