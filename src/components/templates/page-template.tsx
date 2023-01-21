@@ -58,7 +58,7 @@ const PageTemplate: React.FC = () => {
         }
       })();
     }
-  });
+  }, [user]);
 
   return (
     <>
