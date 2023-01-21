@@ -21,7 +21,7 @@ const Profile: React.FC = () => {
     ) {
       navigate("/signup/create-profile");
     }
-  });
+  }, [user, loadingUser, userData]);
 
   return (
     <Card>
