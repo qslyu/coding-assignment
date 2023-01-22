@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import auth from "../../fireabse/auth";
 import Button from "../atoms/button";
 import NavigationButton from "../atoms/navigation-button";
@@ -12,8 +12,14 @@ type HeaderProps = {
 };
 
 const Header: React.FC<HeaderProps> = (props) => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
+
   return (
     <header>
       <button
