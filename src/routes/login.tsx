@@ -1,15 +1,18 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/atoms/button";
 import ErrorMessage from "../components/atoms/error-message";
 import Card from "../components/molecules/card";
 import FormGroup from "../components/molecules/form-group";
+import { useUser } from "../components/templates/page-template";
 import auth from "../fireabse/auth";
 import errorCodeToMessage from "../fireabse/errorCodeToMessage";
 import { ValidateEmail } from "../utils/validate";
 
 const Login: React.FC = () => {
+  const { user } = useUser();
+
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
     email: { value: "", error: "" },
@@ -45,10 +48,14 @@ const Login: React.FC = () => {
       setError(errorCodeToMessage(error.code));
       throw error;
     });
-
-    setIsProcessing(false);
-    navigate("/profile");
   };
+
+  useEffect(() => {
+    if (user) {
+      setIsProcessing(false);
+      navigate("/profile");
+    }
+  }, [user]);
 
   return (
     <Card>

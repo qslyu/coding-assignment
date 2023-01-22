@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/atoms/button";
 import Card from "../components/molecules/card";
@@ -8,8 +8,10 @@ import auth from "../fireabse/auth";
 import { ValidateEmail, ValidatePassword } from "../utils/validate";
 import ErrorMessage from "../components/atoms/error-message";
 import errorCodeToMessage from "../fireabse/errorCodeToMessage";
+import { useUser } from "../components/templates/page-template";
 
 const SignUp: React.FC = () => {
+  const { user } = useUser();
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
     email: { value: "", error: "" },
@@ -47,10 +49,14 @@ const SignUp: React.FC = () => {
       setError(errorCodeToMessage(error.code));
       throw error;
     });
-
-    setIsProcessing(false);
-    navigate("/signup/create-profile");
   };
+
+  useEffect(() => {
+    if (user) {
+      setIsProcessing(false);
+      navigate("/signup/create-profile");
+    }
+  }, [user]);
 
   return (
     <Card>
