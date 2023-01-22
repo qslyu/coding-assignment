@@ -9,10 +9,11 @@ import FormGroup from "../../components/molecules/form-group";
 import uploadAvatarImage from "../../utils/upload-avatar-image";
 import db from "../../fireabse/firestore";
 import { useUser } from "../../components/templates/page-template";
+import genderIdToString from "../../utils/gender-id-to-string";
 
 const CreateProfile: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, setUserData } = useUser();
 
   const [formValues, setFormValues] = useState({
     userName: { value: "", error: "" },
@@ -40,6 +41,10 @@ const CreateProfile: React.FC = () => {
     if (user) {
       setIsProcessing(true);
       let avatarImageSrc = "";
+      const userName = formValues.userName.value;
+      const dateOfBirth = new Date(formValues.dateOfBirth.value);
+      const gender = Number(formValues.gender.value);
+
       if (avatarImageFile !== undefined) {
         avatarImageSrc = await uploadAvatarImage(user, avatarImageFile).catch(
           (error) => {
@@ -55,13 +60,20 @@ const CreateProfile: React.FC = () => {
       const userDocRef = doc(db, "user", user.uid);
       await setDoc(userDocRef, {
         avatar: avatarImageSrc,
-        userName: formValues.userName.value,
-        dateOfBirth: new Date(formValues.dateOfBirth.value),
-        gender: Number(formValues.gender.value),
+        userName: userName,
+        dateOfBirth: dateOfBirth,
+        gender: gender,
       }).catch((error) => {
         setError("エラーが発生しました。");
         setIsProcessing(false);
         throw error;
+      });
+
+      setUserData({
+        avatar: avatarImageSrc,
+        userName: userName,
+        dateOfBirth: dateOfBirth.toLocaleDateString(),
+        gender: genderIdToString(gender),
       });
 
       setIsProcessing(false);

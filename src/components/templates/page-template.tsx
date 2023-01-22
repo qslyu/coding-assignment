@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useLocation, useOutletContext } from "react-router-dom";
+import { Outlet, useOutletContext } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Header from "../organisms/header";
 import "./page-template.css";
@@ -7,6 +7,7 @@ import auth from "../../fireabse/auth";
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../../fireabse/firestore";
+import genderIdToString from "../../utils/gender-id-to-string";
 
 type userDataType = {
   avatar: string;
@@ -19,12 +20,12 @@ type ContextType = {
   user: User | null;
   loadingUser: boolean;
   userData: userDataType | null;
+  setUserData: React.Dispatch<React.SetStateAction<userDataType | null>>;
 };
 
 const PageTemplate: React.FC = () => {
-  const location = useLocation();
   const [user, loadingUser] = useAuthState(auth);
-  const [userData, setUserData] = useState<userDataType>();
+  const [userData, setUserData] = useState<userDataType | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -33,38 +34,25 @@ const PageTemplate: React.FC = () => {
         const value = await getDoc(docRef);
         if (value.exists()) {
           const data = value.data();
-          let gender = "";
-          switch (data.gender) {
-            case 0:
-              gender = "未回答";
-              break;
-            case 1:
-              gender = "男性";
-              break;
-            case 2:
-              gender = "女性";
-              break;
-            case 9:
-              gender = "その他";
-              break;
-          }
 
           setUserData({
             avatar: data.avatar,
             userName: data.userName,
             dateOfBirth: data.dateOfBirth.toDate().toLocaleDateString(),
-            gender: gender,
+            gender: genderIdToString(data.gender),
           });
         }
       })();
+    } else {
+      setUserData(null);
     }
-  }, [location, user]);
+  }, [user]);
 
   return (
     <>
       <Header isLoggedIn={!!user} />
       <main>
-        <Outlet context={{ user, loadingUser, userData }} />
+        <Outlet context={{ user, loadingUser, userData, setUserData }} />
       </main>
     </>
   );
