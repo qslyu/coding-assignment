@@ -7,7 +7,7 @@ import Card from "../components/molecules/card";
 import FormGroup from "../components/molecules/form-group";
 import { useUser } from "../components/templates/page-template";
 import auth from "../fireabse/auth";
-import errorCodeToMessage from "../fireabse/errorCodeToMessage";
+import errorCodeToMessage from "../fireabse/error-code-to-message";
 import { ValidateEmail } from "../utils/validate";
 
 const Login: React.FC = () => {

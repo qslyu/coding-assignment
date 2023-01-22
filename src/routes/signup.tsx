@@ -7,7 +7,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../fireabse/auth";
 import { ValidateEmail, ValidatePassword } from "../utils/validate";
 import ErrorMessage from "../components/atoms/error-message";
-import errorCodeToMessage from "../fireabse/errorCodeToMessage";
+import errorCodeToMessage from "../fireabse/error-code-to-message";
 import { useUser } from "../components/templates/page-template";
 
 const SignUp: React.FC = () => {

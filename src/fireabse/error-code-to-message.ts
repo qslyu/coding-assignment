@@ -1,5 +1,4 @@
 const errorCodeToMessage = (code: string) => {
-  console.log(code);
   switch (code) {
     case "auth/user-not-found":
       return "ユーザーが見つかりません。";
