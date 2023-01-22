@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/atoms/button";
@@ -13,7 +13,7 @@ import genderIdToString from "../../utils/gender-id-to-string";
 
 const CreateProfile: React.FC = () => {
   const navigate = useNavigate();
-  const { user, setUserData } = useUser();
+  const { user, userData, setUserData } = useUser();
 
   const [formValues, setFormValues] = useState({
     userName: { value: "", error: "" },
@@ -75,11 +75,23 @@ const CreateProfile: React.FC = () => {
         dateOfBirth: dateOfBirth.toLocaleDateString(),
         gender: genderIdToString(gender),
       });
+    }
+  };
 
+  useEffect(() => {
+    if (
+      userData !== null &&
+      !(
+        userData?.avatar == "" ||
+        userData?.dateOfBirth == "" ||
+        userData?.gender == "" ||
+        userData?.userName == ""
+      )
+    ) {
       setIsProcessing(false);
       navigate("/profile");
     }
-  };
+  }, [userData]);
 
   return (
     <Card>

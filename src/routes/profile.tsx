@@ -7,33 +7,43 @@ import { useUser } from "../components/templates/page-template";
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { user, loadingUser, userData } = useUser();
-  const isLoggedIn = !(!loadingUser && !user);
 
   useEffect(() => {
-    if (isLoggedIn && !userData) {
+    if (
+      user &&
+      userData !== null &&
+      (userData?.avatar == "" ||
+        userData?.dateOfBirth == "" ||
+        userData?.gender == "" ||
+        userData?.userName == "")
+    ) {
       navigate("/signup/create-profile");
     }
-  }, []);
+  }, [userData]);
 
   return (
     <Card>
-      {isLoggedIn ? (
-        <>
-          <Avatar
-            size="medium"
-            src={
-              userData
-                ? userData.avatar
-                : import.meta.env.VITE_DEFAULT_AVATAR_SRC
-            }
-          />
-          <h3>{userData?.userName}</h3>
-          <ul>
-            <li>メールアドレス: {user && user.email}</li>
-            <li>生年月日: {userData?.dateOfBirth}</li>
-            <li>性別: {userData?.gender}</li>
-          </ul>
-        </>
+      {user || loadingUser ? (
+        userData === null ? (
+          <h1>Loading...</h1>
+        ) : (
+          <>
+            <Avatar
+              size="medium"
+              src={
+                userData
+                  ? userData.avatar
+                  : import.meta.env.VITE_DEFAULT_AVATAR_SRC
+              }
+            />
+            <h3>{userData?.userName}</h3>
+            <ul>
+              <li>メールアドレス: {user && user.email}</li>
+              <li>生年月日: {userData?.dateOfBirth}</li>
+              <li>性別: {userData?.gender}</li>
+            </ul>
+          </>
+        )
       ) : (
         <h1>プロフィールを確認するにはログインしてください</h1>
       )}

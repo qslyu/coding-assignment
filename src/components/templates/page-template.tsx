@@ -41,6 +41,13 @@ const PageTemplate: React.FC = () => {
             dateOfBirth: data.dateOfBirth.toDate().toLocaleDateString(),
             gender: genderIdToString(data.gender),
           });
+        } else {
+          setUserData({
+            avatar: "",
+            userName: "",
+            dateOfBirth: "",
+            gender: "",
+          });
         }
       })();
     } else {
